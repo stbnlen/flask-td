@@ -4,11 +4,12 @@ FROM python:3.10
 # Establecer el directorio de trabajo
 WORKDIR /code
 
-# Copiar el archivo de requerimientos
-COPY requirements.txt .
+# Copiar el Pipfile y Pipfile.lock
+COPY Pipfile Pipfile.lock ./
 
-# Instalar los requerimientos
-RUN pip install --no-cache-dir -r requirements.txt
+# Instalar los requerimientos con pipenv
+RUN pip install --no-cache-dir pipenv && \
+    pipenv install --system --deploy --ignore-pipfile
 
 # Copiar el resto del código
 COPY . .
